@@ -1,4 +1,3 @@
-
 //load electron module
 const electron = require("electron");
 
@@ -38,9 +37,8 @@ ipcMain.on("mul-sync",(event, arg) => {
 //get message from renderer process
 ipcMain.on('mul-async', (event, arg) => {
   console.log(arg);
-
   var result = arg.a + arg.b;
-  
+
   //send result to renderer process async
   event.sender.send('mul-async-reply',result);
 });
@@ -67,5 +65,4 @@ ipcMain.on("searchPrime",function(event,arg){
   var flag=searchPrime(arg);
   event.returnValue = flag;
 });
-
 
