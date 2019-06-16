@@ -28,6 +28,11 @@ app.on("ready",function(){
     mainWindow = null;
     });
 });
+
+//when all window are closed
+app.on('window-all-closed', function() {  
+  app.quit();
+});
  
 //get message from renderer process
 ipcMain.on("mul-sync",(event, arg) => {
