@@ -1,24 +1,27 @@
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>素数チェッカー</title>
+  <meta charset="UTF-8">
+  <title>素数チェッカー</title>
     <script>
-        // modules
-        const {ipcRenderer} = require('electron');
-        var info;
- 
-        window.onload = function () {
+
+      // modules
+      const {ipcRenderer} = require('electron');
+      var info;
+
+      //default behavior when window is loaded
+      window.onload = function () {
             //info = document.getElementById('info');
             //testSync(30,20);
             //testAsync();
         };
- 
-        function testSync(){
-            console.log("test sync");
-            // メインプロセスに引数を送信して回答を得る
-            var x=document.getElementById("id_textBox1").value;
-            var res = ipcRenderer.sendSync('mul-sync', {a: x, b: 100});
-            msg("sync result = " + res);
+
+      function testSync(){
+        console.log("test sync");
+
+        // メインプロセスに引数を送信して回答を得る
+        var x=document.getElementById("id_textBox1").value;
+        var res = ipcRenderer.sendSync('mul-sync', {a: x, b: 100});
+        msg("sync result = " + res);
         }
  
         function testAsync(){
