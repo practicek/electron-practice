@@ -3,8 +3,7 @@
   <meta charset="UTF-8">
   <title>素数チェッカー</title>
     <script>
-
-      // modules
+      //modules
       const {ipcRenderer} = require('electron');
       var info;
 
@@ -18,60 +17,62 @@
       function testSync(){
         console.log("test sync");
 
-        // メインプロセスに引数を送信して回答を得る
-        var x=document.getElementById("id_textBox1").value;
+        //get val from text box1
+        var x = document.getElementById("id_textBox1").value;
+
+        //send message to main process and get response sync
         var res = ipcRenderer.sendSync('mul-sync', {a: x, b: 100});
+
+        //call msg func
         msg("sync result = " + res);
         }
  
-        function testAsync(){
-            ipcRenderer.send('mul-async', {a: 30, b: 2});
- 
-            // 非同期通信の結果を受けた時
-            ipcRenderer.on('mul-async-reply', (event, arg) => {
-                msg("async result = " + arg);
-            });
+      function testAsync(){
+        ipcRenderer.send('mul-async', {a: 30, b: 2});
+
+        //非同期通信の結果を受けた時
+        ipcRenderer.on('mul-async-reply', (event, arg) => {
+        msg("async result = " + arg);
+          });
         }
         
-        function searchPrime(){
-		var index=document.getElementById("id_textBox2").value;
-		var res=ipcRenderer.sendSync("searchPrime",index);
-		if (res==true){
-		  msg(index+"は素数です");
-	        }
-		else {
-                  msg(index+"は素数ではありましぇん");
-                }
-
+      function searchPrime(){
+        var index=document.getElementById("id_textBox2").value;
+        var res=ipcRenderer.sendSync("searchPrime",index);
+        if (res==true){
+          msg(index+"は素数です");
+          }
+        else {
+          msg(index+"は素数ではありましぇん");
+          }
         }
-        function shellSync(){
-                var param=document.getElementById("id_textBox3").value;
-                var res=ipcRenderer.sendSync("shellSync",param);
-		msg("shellからの返り値:"+res);
 
+      function shellSync(){
+        var param=document.getElementById("id_textBox3").value;
+        var res=ipcRenderer.sendSync("shellSync",param);
+        msg("shellからの返り値:"+res);
         }
  
-        function msg(msg){
-            var info = document.getElementById("info");
-                info.innerHTML = msg;
+      function msg(msg){
+        var info = document.getElementById("info");
+        info.innerHTML = msg;
         }
-        // };
     </script>
 </head>
 <body>
-    <h1>素数チェッカー</h1>
-    <form name="test">
-      <input name="textBox1" id="id_textBox1" type="text" value="" />
-      <input type="button" value="同期計算" onClick="testSync()">
-    </form>
-    <form name="test2">
-      <input name="textBox2" id="id_textBox2" type="text" value="" />
-      <input type="button" value="素数検索" onClick="searchPrime()">
-    </form>
-    <form name="test3">
-      <input name="textBox3" id="id_textBox3" type="text" value="" />
-      <input type="button" value="shell実行" onClick="shellSync()">
-    </form>
-    <p id="info"></p>
+  <h1>素数チェッカー</h1>
+  <form name="test">
+    <input name="textBox1" id="id_textBox1" type="text" value="" />
+    <input type="button" value="同期計算" onClick="testSync()">
+  </form>
+  <form name="test2">
+    <input name="textBox2" id="id_textBox2" type="text" value="" />
+    <input type="button" value="素数検索" onClick="searchPrime()">
+  </form>
+  <form name="test3">
+    <input name="textBox3" id="id_textBox3" type="text" value="" />
+    <input type="button" value="shell実行" onClick="shellSync()">
+  </form>
+  <p id="info"></p>
 </body>
 </html>
