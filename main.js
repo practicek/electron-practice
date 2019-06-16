@@ -10,6 +10,9 @@ let mainWindow;
  
 //set object for ipc
 const {ipcMain} = require("electron");
+
+//load javascript function
+const func = require("./js/function.js");
  
 //init event when process starts
 //fork renderer process and load html
@@ -43,17 +46,17 @@ ipcMain.on('mul-async', (event, arg) => {
   event.sender.send('mul-async-reply',result);
 });
 
-function searchPrime(x){
-  var flag=true;
-  for (var i=2; i<x/2; i++){
-    if (x%i==0){
-      flag=false;
-      break;
-    }
-  }
-  console.log(flag);
-  return flag
-}
+//function searchPrime(x){
+//  var flag=true;
+//  for (var i=2; i<x/2; i++){
+//    if (x%i==0){
+//      flag=false;
+//      break;
+//    }
+//  }
+//  console.log(flag);
+//  return flag
+//}
 
 function shellSync(x){
   console.log(x);
@@ -62,7 +65,7 @@ function shellSync(x){
 
 ipcMain.on("searchPrime",function(event,arg){
   console.log(arg);
-  var flag=searchPrime(arg);
+  var flag=func.searchPrime(arg);
   event.returnValue = flag;
 });
 
