@@ -51,26 +51,9 @@ ipcMain.on('mul-async', (event, arg) => {
   event.sender.send('mul-async-reply',result);
 });
 
-//function searchPrime(x){
-//  var flag=true;
-//  for (var i=2; i<x/2; i++){
-//    if (x%i==0){
-//      flag=false;
-//      break;
-//    }
-//  }
-//  console.log(flag);
-//  return flag
-//}
-
-function shellSync(x){
-  console.log(x);
-  event.returnValue ="モック";
-}
-
-ipcMain.on("searchPrime",function(event,arg){
+ipcMain.on("checkPrime",function(event,arg){
   console.log(arg);
-  var flag=func.searchPrime(arg);
+  var flag=func.checkPrime(arg);
   event.returnValue = flag;
 });
 

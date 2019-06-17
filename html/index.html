@@ -36,23 +36,17 @@
           });
         }
         
-      function searchPrime(){
-        var index=document.getElementById("id_textBox2").value;
-        var res=ipcRenderer.sendSync("searchPrime",index);
+      function checkPrime(){
+        var num=document.getElementById("id_textBox2").value;
+        var res=ipcRenderer.sendSync("checkPrime",num);
         if (res==true){
-          msg(index+"は素数です");
+          msg(num+"は素数です");
           }
         else {
-          msg(index+"は素数ではありましぇん");
+          msg(num+"は素数ではありましぇん");
           }
         }
 
-      function shellSync(){
-        var param=document.getElementById("id_textBox3").value;
-        var res=ipcRenderer.sendSync("shellSync",param);
-        msg("shellからの返り値:"+res);
-        }
- 
       function msg(msg){
         var info = document.getElementById("info");
         info.innerHTML = msg;
@@ -67,11 +61,7 @@
   </form>
   <form name="test2">
     <input name="textBox2" id="id_textBox2" type="text" value="" />
-    <input type="button" value="素数検索" onClick="searchPrime()">
-  </form>
-  <form name="test3">
-    <input name="textBox3" id="id_textBox3" type="text" value="" />
-    <input type="button" value="shell実行" onClick="shellSync()">
+    <input type="button" value="素数検索" onClick="checkPrime()">
   </form>
   <p id="info"></p>
 </body>
